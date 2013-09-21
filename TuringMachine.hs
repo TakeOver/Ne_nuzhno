@@ -9,6 +9,10 @@ main :: IO()
 runMT :: Program -> String -> String
 makeInfList :: forall k a. (Num k, Ord k) => [a] -> MMap.Map k a
 infToStr :: forall k . (Eq k, Num k) => MMap.Map k Char -> String
+lambda :: Char
+finalState :: Int
+lambda = '_'
+finalState = 0
 makeInfList s = MMap.fromList s'
     where tranform' x s'' | null s'' = []
                           | otherwise = (x,head s''):tranform' (x+1) (tail s'') 
@@ -19,20 +23,18 @@ infToStr m = iterate' (MMap.keys m) (MMap.elems m)
             (_, b:[]) -> [b]
             (a:xs,c:ys) -> c:lambdas (head xs - a - 1) ++  iterate' xs ys
                 where lambdas x | x == 0 = []
-                                | otherwise = '_':lambdas (x-1)
+                                | otherwise = lambda:lambdas (x-1)
 runMT prog' str = _runMT (MMap.fromList []:prog') (makeInfList str) 0 1
-    where _runMT prog list position curState = let curChar = fromMaybe '_' (MMap.lookup position list)
-                                                   (char,next,_dir) = fromMaybe (curChar, 0, N) (MMap.lookup curChar (prog !! curState))
-                                                   endOfProg = next == 0
-                                                   nlist = MMap.insert position char list
+    where _runMT prog list position curState = let curChar = fromMaybe lambda (MMap.lookup position list)
+                                                   (char,next,_dir) = fromMaybe (curChar, finalState, N) (MMap.lookup curChar (prog !! curState))
+                                                   endOfProg = next == finalState
+                                                   nlist = if char /= lambda || curChar /= lambda then MMap.insert position char list else list
                                                    npos = position + dirToInt _dir
                                                         where dirToInt d = case d of
                                                                 L -> (-1) :: Int
                                                                 R -> 1
                                                                 N -> 0
-                                               in if endOfProg then infToStr nlist 
-                                                    else _runMT prog nlist npos next
-
+                                               in if endOfProg then infToStr nlist else _runMT prog nlist npos next
 main = putStrLn $ runMT prog "101"
     where prog = [MMap.fromList [('0',('1',1,R)),('1',('0',1,R))]] :: Program
 
