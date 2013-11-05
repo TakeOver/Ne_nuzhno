@@ -88,5 +88,4 @@ begin // http://www.wolframalpha.com/input/?i=%7C%28integrate+log%28x%29-+1%2F%2
     writeln('Roots:',roots[1], ' ',roots[2],' ',roots[3]);
     S := abs(Integrate(@F1,@F3,roots[1], roots[2], EPSILON)) + abs(Integrate(@F1,@F2,roots[2],roots[3],EPSILON));
     writeln('Integral of area is ', S:1:10);
-    //так же верный способ интегрирования: writeln(abs(Integrate(@F3,@zero,roots[1],roots[2],EPSILON))+abs(Integrate(@F2,@zero,roots[2],roots[3],EPSILON))-abs(Integrate(@F1,@zero,roots[1],roots[3],EPSILON)):1:10)
 end.
