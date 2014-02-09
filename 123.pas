@@ -32,7 +32,7 @@ implementation
        while  p do
        begin
          middle:=(a+b)/2;
-         if(SubеFG(middle) = 0) then begin
+         if(SubtFG(middle) = 0) then begin
          	x := middle;
          	p := false;
          end else begin
