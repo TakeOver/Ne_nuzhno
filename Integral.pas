@@ -26,8 +26,19 @@ var
         SubFG:= f(x) - g(x);
     end;
 begin
+    if(SubFG(from) = 0) then begin
+        BinarySearch:=from;
+        exit;
+    end else if(SubFG(next) = 0) then begin
+        BinarySearch:=next;
+        exit;
+    end;
     while ((next - from) > eps) do begin
         m := (next + from)/2;
+        if(SubFG(m) = 0) then begin
+            BinarySearch := m;
+            exit;
+        end;
         if SubFG(m)*SubFG(from) < 0 then begin
             next := m
         end else begin
