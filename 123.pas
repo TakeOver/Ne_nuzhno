@@ -32,12 +32,17 @@ implementation
        while  p do
        begin
          middle:=(a+b)/2;
-         if SubtFG(middle)*SubtFG(a) < 0 then 
-		b:=middle
-         else  
-           a:=middle;
-         p:= abs(a-b)>Eps;
-         x:= middle;
+         if(SubFG(middle) = 0) then begin
+         	x := middle;
+         	p := false;
+         end else begin
+         	if SubtFG(middle)*SubtFG(a) < 0 then 
+			b:=middle
+         	else  
+           		a:=middle;
+         	p:= abs(a-b)>Eps;
+         	x:= middle;
+         end;
        end;
 
    end;
