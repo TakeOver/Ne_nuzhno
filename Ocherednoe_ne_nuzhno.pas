@@ -100,6 +100,6 @@ begin
   read(curChar);
   ptr := ReadMonom;
   SubM(head,ptr);
-  dipose(ptr);
+  dispose(ptr);
   Flush(head);
 end.
