@@ -10,18 +10,6 @@ var
   curChar:char;
   ptr,head:pMList;
   
-  function CreateMList(k0,d:integer):pMList;
-  var tmp:pMList;
-  begin
-    new(tmp);
-    with tmp^ do begin
-      k := k0;
-      deg := d;
-      next := nil;
-    end;
-    CreateMList := tmp;
-  end;
-  
   function ReadInt:integer;
   var tmp:integer;
   begin
