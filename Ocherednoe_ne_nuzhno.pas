@@ -8,13 +8,13 @@ type
   end;
 var 
   curChar:char;
-  ptr.head:pMList;
+  ptr,head:pMList;
   
   function CreateMList(k0,d:integer):pMList;
   var tmp:pMList;
   begin
     new(tmp);
-    with tmp do begin
+    with tmp^ do begin
       k := k0;
       deg := d;
       next := nil;
@@ -63,10 +63,10 @@ var
     prev := nil;
     iter := a;
     while iter <> nil do begin
-      if iter^.dep = p^.dep then begin
+      if iter^.deg = p^.deg then begin
         if iter^.k + p^.k = 0 then begin
             prev^.next := iter^.next;
-            dipose(iter);
+            dispose(iter);
             exit;
         end;
         iter^.k := iter^.k + p^.k;
@@ -91,7 +91,7 @@ var
   end;
 begin
   read(curChar);
-  head := ReadMonon;
+  head := ReadMonom;
   ptr := head;
   while curChar <> ',' do begin
     ptr^.next := ReadMonom;
