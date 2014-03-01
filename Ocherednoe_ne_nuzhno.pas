@@ -8,6 +8,7 @@ type
   end;
 var 
   curChar:char;
+  ptr.head:pMList;
   
   function CreateMList(k0,d:integer):pMList;
   var tmp:pMList;
@@ -45,8 +46,60 @@ var
         read(curChar);
       tmp^.k := ReadInt;
     end;
-    read(сurChar);
+    read(curChar);
     read(curChar);
     tmp^.deg := ReadInt;
     tmp^.next := nil;
   end;
+  procedure SubM(var a,p:pMList);
+  var iter,prev:pMList;
+  begin
+    if(a^.deg = p^.deg) and (a^.k + p^.k = 0) then begin
+      iter := a^.next;
+      dispose(a);
+      a := iter;
+      exit;
+    end;
+    prev := nil;
+    iter := a;
+    while iter <> nil do begin
+      if iter^.dep = p^.dep then begin
+        if iter^.k + p^.k = 0 then begin
+            prev^.next := iter^.next;
+            dipose(iter);
+            exit;
+        end;
+        iter^.k := iter^.k + p^.k;
+        exit;
+      end;
+      prev := iter;
+      iter := iter^.next;
+    end;
+  end;
+  procedure Flush(p:pMList);
+  begin
+    if p = nil then writeln('0x^0') 
+    else begin
+      write(p^.k,'x^',p^.deg);
+      p := p^.next;
+      while p <> nil do begin
+        if p^.k >=0 then write('+');
+        write(p^.k,'x^',p^.deg);
+        p := p^.next;
+      end;
+    end;
+  end;
+begin
+  read(curChar);
+  head := ReadMonon;
+  ptr := head;
+  while curChar <> ',' do begin
+    ptr^.next := ReadMonom;
+    ptr := ptr^.next;
+  end.
+  read(curChar);
+  ptr := ReadMonom;
+  SubM(head,ptr);
+  dipose(ptr);
+  Flush(head);
+end.
