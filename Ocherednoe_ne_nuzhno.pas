@@ -96,7 +96,7 @@ begin
   while curChar <> ',' do begin
     ptr^.next := ReadMonom;
     ptr := ptr^.next;
-  end.
+  end;
   read(curChar);
   ptr := ReadMonom;
   SubM(head,ptr);
