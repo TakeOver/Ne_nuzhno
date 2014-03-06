@@ -16,7 +16,7 @@ var
     if p = nil then begin
       new(p);
       p^.Key := s;
-      p^.Count := 0;
+      p^.Count := 1;
       p^.Left := nil;
       p^.Right := nil;
       exit;
@@ -52,6 +52,8 @@ begin
       s[i] := ' ';
     end;
     Insert(t,s);
+    if c <> '.' then
+    	read(c);
   end;
   Print(t);
 end.
