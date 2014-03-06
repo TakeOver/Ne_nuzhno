@@ -35,6 +35,7 @@ var
       for i := 1 to t^.Count do 
         writeln(t^.Key);
       Print(t^.Right);
+      Dipose(t);
     end;
   end;
 begin
@@ -56,4 +57,5 @@ begin
     	read(c);
   end;
   Print(t);
+  
 end.
