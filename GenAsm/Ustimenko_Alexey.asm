@@ -16,7 +16,7 @@ Iter: ;let's name [ebp-8] as i.
 		inc	word ptr [ebp-8] ; i++
 		call	SYSTEM_RANDOM$$EXTENDED
 		fld	qword ptr [ebp+8] ; ST(0) <- p; where p - is probability of mutation
-		fcompp
+		fcompp ; if random < p then mutate
 		fnstsw	ax
 		sahf ; load FPU flags to CPU's one.
 		jb	MutateThis
