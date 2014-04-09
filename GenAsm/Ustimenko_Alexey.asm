@@ -24,8 +24,6 @@ Iter: ;let's name [ebp-8] as i.
 MutateThis:
 		mov	eax,2
 		call	SYSTEM_RANDOM$LONGINT$$LONGINT ; random(2)
-		;mov	edx,eax ; edx := random(2)
-		;sar	edx,31  
 		mov	ebx,dword ptr [ebp-4]
 		movzx	ecx,word ptr [ebp-8]
 		add 	ecx,ecx
