@@ -215,8 +215,16 @@ AddThreeSub macro Dest,First,Second
 		IRP R,<AX,BX,CX,DX>
 			push R
 		ENDM
-		expand2D First,AX,BX
-		expand2D Second,CX,DX
+		Check Second, AX, AX,Ax,aX,ax
+		Check Second, AL, AL,Al,aL,al
+		Check Second, AH, AH,Ah,aH,ah
+		IF CheckAX_&Second OR CheckAL_&Second OR CheckAH_&Second
+			expand2D First, CX,DX
+			expand2D Second,AX,BX
+		ELSE
+			expand2D First,AX,BX
+			expand2D Second,CX,DX
+		ENDIF
 		add BX,DX
 		adc AX,CX
 		add word ptr Dest,BX
@@ -253,6 +261,8 @@ start:
 	mov DX, 74
 	mov CX, 65
 	mov SI, 11
+	Addthree ax b3 bl
+outword <ax>
 ; команды программы должны располагаться здесь
 	finish
 code ends
